@@ -167,4 +167,4 @@ Apache 2.0
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=WisdomShell/codeshell-vscode&type=Date)](https://star-history.com/#WisdomShell/codeshell-vscode&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=WisdomShell/codeshell-vscode&type=Date)](https://star-history.com/#WisdomShell/codeshell-vscode&Date)"# demoCoder" 
