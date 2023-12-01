@@ -51,14 +51,16 @@ export class CodeShellCompletionProvider implements InlineCompletionItemProvider
     }
 
     private getFimPrefixCode(document: TextDocument, position: Position): string {
-        const firstLine = Math.max(position.line - 100, 0);
+        const beforeCursor = workspace.getConfiguration("CodeShell").get("beforeCursor") as number;
+        const firstLine = Math.max(position.line - beforeCursor, 0);
         const range = new Range(firstLine, 0, position.line, position.character);
         return document.getText(range).trim();
     }
 
     private getFimSuffixCode(document: TextDocument, position: Position): string {
         const startLine = position.line + 1;
-        const endLine = Math.min(startLine + 10, document.lineCount);
+        const afterCursor = workspace.getConfiguration("CodeShell").get("afterCursor") as number;
+        const endLine = Math.min(startLine + afterCursor, document.lineCount);
         const range = new Range(position.line, position.character, endLine, 0);
         return document.getText(range).trim();
     }

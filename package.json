@@ -37,10 +37,11 @@
         },
         "CodeShell.RunEnvForLLMs": {
           "description": "The environment that should be used for running LLMs.",
-          "default": "CPU with llama.cpp",
+          "default": "TSS AI toolkit",
           "enum": [
             "CPU with llama.cpp",
-            "GPU with TGI toolkit"
+            "GPU with TGI toolkit",
+            "TSS AI toolkit"
           ],
           "type": "string",
           "order": 2
@@ -86,6 +87,35 @@
           ],
           "default": 2048,
           "order": 9
+        },
+        "Codeshell.authorization":{
+          "description": "user authorization",
+          "type": "string",
+          "order": 10
+        },
+        "CodeShell.beforeCursor": {
+          "description": "Number of lines before scanning the cursor",
+          "type": "number",
+          "enum": [
+            30,
+            50,
+            80,
+            100
+          ],
+          "default": 50,
+          "order": 11
+        },
+        "CodeShell.afterCursor": {
+          "description": "Number of lines after scanning the cursor",
+          "type": "number",
+          "enum": [
+            10,
+            20,
+            30,
+            50
+          ],
+          "default": 20,
+          "order": 12
         }
       }
     },

@@ -165,6 +165,9 @@ export class CodeShellWebviewViewProvider implements vscode.WebviewViewProvider 
 		console.log("historyPrompt:", historyPrompt);
 		postEventStream(historyPrompt, (data) => {
 			const jsonData = JSON.parse(data);
+			console.log("jsonData");
+			console.log(jsonData);
+			
 			if (jsonData.content) {
 				chatItem.aiMessage.append(jsonData.content);
 			}
