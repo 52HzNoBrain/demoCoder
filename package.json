@@ -88,7 +88,7 @@
           "default": 2048,
           "order": 9
         },
-        "Codeshell.authorization":{
+        "Codeshell.authorization": {
           "description": "user authorization",
           "type": "string",
           "order": 10
@@ -263,7 +263,8 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "commit": "cz"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
@@ -275,6 +276,7 @@
     "@vscode/l10n-dev": "^0.0.18",
     "@vscode/test-electron": "^2.3.2",
     "@vscode/vsce": "^2.21.1",
+    "commitizen": "^4.3.0",
     "eslint": "^8.41.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",

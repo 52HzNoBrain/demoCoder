@@ -36,8 +36,17 @@ function registerWebviewViewExtension(context: vscode.ExtensionContext) {
 }
 
 function registerCompleteionExtension(context: vscode.ExtensionContext) {
+	//Creates a status bar item.
 	const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+	/**
+	 * The text to show for the entry. You can embed icons in the text by leveraging the syntax:
+
+		My text $(icon-name) contains icons like $(icon-name) this one.
+
+		Where the icon-name is taken from the ThemeIcon icon set, e.g. light-bulb, thumbsup, zap etc.
+	 */
 	statusBar.text = "$(lightbulb)";
+	//The tooltip text when you hover over this entry.
 	statusBar.tooltip = `CodeShell - Ready`;
 
 	const completionStatusCallback = (enabled: boolean) => async () => {
@@ -50,6 +59,11 @@ function registerCompleteionExtension(context: vscode.ExtensionContext) {
 	};
 
 	context.subscriptions.push(
+		/**
+		 * Used to register completion providers. 
+		 * Inline completion means that as you enter code, 
+		 * the editor automatically displays code suggestions related to your input
+		 */
 		vscode.languages.registerInlineCompletionItemProvider(
 			{ pattern: "**" }, new CodeShellCompletionProvider(statusBar)
 		),
@@ -58,6 +72,7 @@ function registerCompleteionExtension(context: vscode.ExtensionContext) {
 		vscode.commands.registerCommand("codeshell.auto_completion_disable", completionStatusCallback(false)),
 		statusBar
 	);
+
 
 	if (vscode.workspace.getConfiguration("CodeShell").get("AutoTriggerCompletion")) {
 		vscode.commands.executeCommand("codeshell.auto_completion_enable");
