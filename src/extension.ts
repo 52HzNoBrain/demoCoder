@@ -15,16 +15,20 @@ export function activate(context: vscode.ExtensionContext) {
 // This method is called when your extension is deactivated
 export function deactivate() { }
 
-
+// Function to register the WebView view extension
 function registerWebviewViewExtension(context: vscode.ExtensionContext) {
+
+	// Create an instance of the CodeShellWebviewViewProvider with the extension's context
 	const provider = new CodeShellWebviewViewProvider(context);
 
-	// Register the provider with the extension's context
-
+	// Register the provider and associated commands with the extension's context subscriptions
 	context.subscriptions.push(
+		// Register the WebView view provider
 		vscode.window.registerWebviewViewProvider(CodeShellWebviewViewProvider.viewId, provider, {
 			webviewOptions: { retainContextWhenHidden: true }
 		}),
+
+		// Register commands associated with the WebView view provider
 		vscode.commands.registerCommand("codeshell.explain_this_code", () => provider.executeCommand("codeshell.explain_this_code")),
 		vscode.commands.registerCommand("codeshell.improve_this_code", () => provider.executeCommand("codeshell.improve_this_code")),
 		vscode.commands.registerCommand("codeshell.clean_this_code", () => provider.executeCommand("codeshell.clean_this_code")),

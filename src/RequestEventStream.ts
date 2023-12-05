@@ -26,6 +26,7 @@ export async function postEventStream(prompt: string, msgCallback: (data: string
             "stop": ["|<end>|", "|end|", "<|endoftext|>", "## human"]
         };
     }
+
     if ("GPU with TGI toolkit" == modelEnv) {
         // uri = "/generate_stream"
         uri = '/llm-poc/chat/completion?model_name=deepseek&api_version=2023-11-01'
@@ -40,6 +41,7 @@ export async function postEventStream(prompt: string, msgCallback: (data: string
             "stream": true
         };
     }
+    
     if("TSS AI toolkit" == modelEnv) {
         uri = '/llm-poc/chat/completion?model_name=codellama34b&api_version=2023-11-01'
         let regex = /## human:(.*?)##/g;
