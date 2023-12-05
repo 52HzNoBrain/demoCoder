@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { workspace } from "vscode";
 import { FetchStream } from "./FetchStream";
+import { PromptDto } from "./ChatMemory"
 import AbortController from "abort-controller";
 
 let abortController = new AbortController();
@@ -9,14 +10,13 @@ export async function stopEventStream() {
     abortController.abort();
 }
 
-export async function postEventStream(prompt: string, msgCallback: (data: string) => any, doneCallback: () => void, errorCallback: (err: any) => void) {
+export async function postEventStream(prompt: Array<PromptDto>, msgCallback: (data: string) => any, doneCallback: () => void, errorCallback: (err: any) => void) {
     const serverAddress = workspace.getConfiguration("CodeShell").get("ServerAddress") as string;
     const maxtokens = workspace.getConfiguration("CodeShell").get("ChatMaxTokens") as number;
     const authorization = workspace.getConfiguration("CodeShell").get("authorization") as string;
     const modelEnv = workspace.getConfiguration("CodeShell").get("RunEnvForLLMs") as string;
     var uri = "";
     var body = {};
-    console.log(prompt);
     
     if ("CPU with llama.cpp" == modelEnv) {
         uri = "/completion"
@@ -43,21 +43,9 @@ export async function postEventStream(prompt: string, msgCallback: (data: string
     }
     
     if("TSS AI toolkit" == modelEnv) {
-        uri = '/llm-poc/chat/completion?model_name=codellama34b&api_version=2023-11-01'
-        let regex = /## human:(.*?)##/g;
-        let match;
-        let input = [];
-
-        while (match = regex.exec(prompt)) {
-            input.push({
-                role: "user",
-                content: match[1].replace(/\|<end>\|/g, "")
-            });
-        }
-        console.log("input:");
-        console.log(input);
+        uri = "/ide-chat"
         body = {
-            "inputs": input,
+            "messages": prompt,
             "parameters":{
                 "max_new_tokens": maxtokens,
                 "truncate":4000
@@ -67,6 +55,8 @@ export async function postEventStream(prompt: string, msgCallback: (data: string
     }
     abortController = new AbortController();
     console.log("uri:" + uri)
+    console.log("============body=============");
+    console.log(body);
     
     new FetchStream({
         url: serverAddress + uri,

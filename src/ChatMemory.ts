@@ -66,17 +66,21 @@ export class SessionItem {
     }
 
     getSlicePrompt(start:number, end:number) {
-        let history = "";
+        let history = new Array<PromptDto>;
         for (let i = start; i <= end; i++) {
             const chatItem = this.chatList[i];
-            if (history.length > 0) {
-                history += "\n";
+
+            if(chatItem.humanMessage){
+                history.push(new PromptDto("user",chatItem.humanMessage.toString().replace("## human:", "")))
             }
-            history += chatItem.toString();
-            if (i < end) {
-                history += "|<end>|";
+
+            if(chatItem.aiMessage){
+                history.push(new PromptDto("assistant",chatItem.aiMessage.toString().replace("## assistant:", "")))
             }
+            
         }
+        console.log("======================history===================================");
+        console.log(history);
         return history;
     }
 }
@@ -157,4 +161,18 @@ export class SessionStore {
         });
     }
 
+}
+
+export class PromptDto {
+    role: string;
+    content: string;
+
+    constructor(role: string, content: string){
+        this.role = role;
+        this.content = content;
+    }
+
+    getInstance(): PromptDto {
+        return this;
+    }
 }

@@ -1,6 +1,7 @@
 import fetch, { RequestInit, Response } from "node-fetch";
 import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser";
 import { window } from "vscode";
+import { log } from "console";
 
 export interface FetchStreamOptions {
   url: string;
@@ -35,6 +36,8 @@ export class FetchStream {
 
     fetch(this.url, this.requestInit)
       .then(response => {
+        console.log("请求返回的response:");
+        console.log(response);
         if (response.status === 200) {
           return response.body!;
         } else {
@@ -43,9 +46,6 @@ export class FetchStream {
       }).then(async (readableStream) => {
         for await (const chunk of readableStream) {
           parser.feed(chunk.toString());
-          console.log("response===");
-          console.log(chunk.toString());
-          console.log(parser.feed(chunk.toString()));
         }
       }).then(() => {
         this.ondone?.();

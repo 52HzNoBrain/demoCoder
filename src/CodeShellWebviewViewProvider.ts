@@ -166,7 +166,7 @@ export class CodeShellWebviewViewProvider implements vscode.WebviewViewProvider 
 		
 		postEventStream(historyPrompt, (data) => {
 			const jsonData = JSON.parse(data);
-			console.log("jsonData");
+			console.log("onmessage:(JSONData):");
 			console.log(jsonData);
 			
 			if (jsonData.content) {

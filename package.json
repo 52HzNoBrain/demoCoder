@@ -80,6 +80,7 @@
           "description": "Maximum number of tokens for which chat messages will be displayed",
           "type": "number",
           "enum": [
+            64,
             1024,
             2048,
             4096,
