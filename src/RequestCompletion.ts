@@ -12,9 +12,9 @@ export interface CompletionResponse {
 // Asynchronous function to send a code completion request to the server
 export async function postCompletion(fimPrefixCode: string, fimSuffixCode: string): Promise<string | undefined> {
     // Get the server address, maximum completion tokens, and runtime environment from the configuration
-    const serverAddress = workspace.getConfiguration("CodeShell").get("ServerAddress") as string;
-    let maxtokens = workspace.getConfiguration("CodeShell").get("CompletionMaxTokens") as number;
-    const modelEnv = workspace.getConfiguration("CodeShell").get("RunEnvForLLMs") as string;
+    const serverAddress = workspace.getConfiguration("AIACode").get("ServerAddress") as string;
+    let maxtokens = workspace.getConfiguration("AIACode").get("CompletionMaxTokens") as number;
+    const modelEnv = workspace.getConfiguration("AIACode").get("RunEnvForLLMs") as string;
 
     // If the runtime environment is "CPU with llama.cpp"
     if ("CPU with llama.cpp" == modelEnv) {
@@ -112,7 +112,7 @@ axiosInstance.interceptors.request.use(
     (config: AxiosRequestConfig) => {
         // Add authorization information to the request headers
         if(config.headers){
-        const authorization = workspace.getConfiguration("CodeShell").get("authorization") as string;
+        const authorization = workspace.getConfiguration("AIACode").get("authorization") as string;
             config.headers['authorization'] = authorization ;
         }
         return config;

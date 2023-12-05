@@ -5,7 +5,7 @@ const translations = require('../l10n/MultiLanguage.json');
 
 function getUserLanguagePreference(): string {
     const lang = vscode.env.language;
-    // const lang = vscode.workspace.getConfiguration('CodeShell').get('MultiLanguage') as string;
+    // const lang = vscode.workspace.getConfiguration('AIACode').get('MultiLanguage') as string;
     if (!lang) { return 'en'; }
     return lang;
 }

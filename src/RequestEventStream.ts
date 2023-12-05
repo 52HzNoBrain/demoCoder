@@ -11,10 +11,10 @@ export async function stopEventStream() {
 }
 
 export async function postEventStream(prompt: Array<PromptDto>, msgCallback: (data: string) => any, doneCallback: () => void, errorCallback: (err: any) => void) {
-    const serverAddress = workspace.getConfiguration("CodeShell").get("ServerAddress") as string;
-    const maxtokens = workspace.getConfiguration("CodeShell").get("ChatMaxTokens") as number;
-    const authorization = workspace.getConfiguration("CodeShell").get("authorization") as string;
-    const modelEnv = workspace.getConfiguration("CodeShell").get("RunEnvForLLMs") as string;
+    const serverAddress = workspace.getConfiguration("AIACode").get("ServerAddress") as string;
+    const maxtokens = workspace.getConfiguration("AIACode").get("ChatMaxTokens") as number;
+    const authorization = workspace.getConfiguration("AIACode").get("authorization") as string;
+    const modelEnv = workspace.getConfiguration("AIACode").get("RunEnvForLLMs") as string;
     var uri = "";
     var body = {};
     
@@ -30,7 +30,7 @@ export async function postEventStream(prompt: Array<PromptDto>, msgCallback: (da
     if ("GPU with TGI toolkit" == modelEnv) {
         // uri = "/generate_stream"
         uri = '/llm-poc/chat/completion?model_name=deepseek&api_version=2023-11-01'
-        // uri = "/codeshell-code/assistants"
+        // uri = "/aiacode-code/assistants"
         body = {
             "inputs": prompt,
             "parameters": {

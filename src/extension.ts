@@ -1,8 +1,8 @@
 // The module "vscode" contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
-import { CodeShellCompletionProvider } from "./CodeShellCompletionProvider";
-import { CodeShellWebviewViewProvider } from "./CodeShellWebviewViewProvider";
+import { AIACodeCompletionProvider } from "./AIACodeCompletionProvider";
+import { AIACodeWebviewViewProvider } from "./AIACodeWebviewViewProvider";
 import { translate } from "./LanguageHelper";
 
 // This method is called when your extension is activated
@@ -18,24 +18,24 @@ export function deactivate() { }
 // Function to register the WebView view extension
 function registerWebviewViewExtension(context: vscode.ExtensionContext) {
 
-	// Create an instance of the CodeShellWebviewViewProvider with the extension's context
-	const provider = new CodeShellWebviewViewProvider(context);
+	// Create an instance of the AIACodeWebviewViewProvider with the extension's context
+	const provider = new AIACodeWebviewViewProvider(context);
 
 	// Register the provider and associated commands with the extension's context subscriptions
 	context.subscriptions.push(
 		// Register the WebView view provider
-		vscode.window.registerWebviewViewProvider(CodeShellWebviewViewProvider.viewId, provider, {
+		vscode.window.registerWebviewViewProvider(AIACodeWebviewViewProvider.viewId, provider, {
 			webviewOptions: { retainContextWhenHidden: true }
 		}),
 
 		// Register commands associated with the WebView view provider
-		vscode.commands.registerCommand("codeshell.explain_this_code", () => provider.executeCommand("codeshell.explain_this_code")),
-		vscode.commands.registerCommand("codeshell.improve_this_code", () => provider.executeCommand("codeshell.improve_this_code")),
-		vscode.commands.registerCommand("codeshell.clean_this_code", () => provider.executeCommand("codeshell.clean_this_code")),
-		vscode.commands.registerCommand("codeshell.generate_comment", () => provider.executeCommand("codeshell.generate_comment")),
-		vscode.commands.registerCommand("codeshell.generate_unit_test", () => provider.executeCommand("codeshell.generate_unit_test")),
-		vscode.commands.registerCommand("codeshell.check_performance", () => provider.executeCommand("codeshell.check_performance")),
-		vscode.commands.registerCommand("codeshell.check_security", () => provider.executeCommand("codeshell.check_security")),
+		vscode.commands.registerCommand("aiacode.explain_this_code", () => provider.executeCommand("aiacode.explain_this_code")),
+		vscode.commands.registerCommand("aiacode.improve_this_code", () => provider.executeCommand("aiacode.improve_this_code")),
+		vscode.commands.registerCommand("aiacode.clean_this_code", () => provider.executeCommand("aiacode.clean_this_code")),
+		vscode.commands.registerCommand("aiacode.generate_comment", () => provider.executeCommand("aiacode.generate_comment")),
+		vscode.commands.registerCommand("aiacode.generate_unit_test", () => provider.executeCommand("aiacode.generate_unit_test")),
+		vscode.commands.registerCommand("aiacode.check_performance", () => provider.executeCommand("aiacode.check_performance")),
+		vscode.commands.registerCommand("aiacode.check_security", () => provider.executeCommand("aiacode.check_security")),
 	);
 }
 
@@ -51,12 +51,12 @@ function registerCompleteionExtension(context: vscode.ExtensionContext) {
 	 */
 	statusBar.text = "$(lightbulb)";
 	//The tooltip text when you hover over this entry.
-	statusBar.tooltip = `CodeShell - Ready`;
+	statusBar.tooltip = `AIACode - Ready`;
 
 	const completionStatusCallback = (enabled: boolean) => async () => {
 		const configuration = vscode.workspace.getConfiguration();
 		const target = vscode.ConfigurationTarget.Global;
-		configuration.update("CodeShell.AutoTriggerCompletion", enabled, target, false).then(console.error);
+		configuration.update("AIACode.AutoTriggerCompletion", enabled, target, false).then(console.error);
 		var msg = enabled ? translate("auto_completion") : translate("disable_auto_completion");
 		vscode.window.showInformationMessage(msg);
 		statusBar.show();
@@ -69,19 +69,19 @@ function registerCompleteionExtension(context: vscode.ExtensionContext) {
 		 * the editor automatically displays code suggestions related to your input
 		 */
 		vscode.languages.registerInlineCompletionItemProvider(
-			{ pattern: "**" }, new CodeShellCompletionProvider(statusBar)
+			{ pattern: "**" }, new AIACodeCompletionProvider(statusBar)
 		),
 
-		vscode.commands.registerCommand("codeshell.auto_completion_enable", completionStatusCallback(true)),
-		vscode.commands.registerCommand("codeshell.auto_completion_disable", completionStatusCallback(false)),
+		vscode.commands.registerCommand("aiacode.auto_completion_enable", completionStatusCallback(true)),
+		vscode.commands.registerCommand("aiacode.auto_completion_disable", completionStatusCallback(false)),
 		statusBar
 	);
 
 
-	if (vscode.workspace.getConfiguration("CodeShell").get("AutoTriggerCompletion")) {
-		vscode.commands.executeCommand("codeshell.auto_completion_enable");
+	if (vscode.workspace.getConfiguration("AIACode").get("AutoTriggerCompletion")) {
+		vscode.commands.executeCommand("aiacode.auto_completion_enable");
 	} else {
-		vscode.commands.executeCommand("codeshell.auto_completion_disable");
+		vscode.commands.executeCommand("aiacode.auto_completion_disable");
 	}
 }
 

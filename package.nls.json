@@ -1,11 +1,11 @@
 {
-    "codeshell.auto_completion_enable.title": "Enable Auto Completion",
-    "codeshell.auto_completion_disable.title": "Disable Auto Completion",
-    "codeshell.explain_this_code.title": "Explain Selected Codes",
-    "codeshell.improve_this_code.title": "Optimize Selected Codes",
-    "codeshell.clean_this_code.title": "Clean Selected Codes",
-    "codeshell.generate_comment.title": "Generate Comment",
-    "codeshell.generate_unit_test.title": "Generate Unit Test",
-    "codeshell.check_performance.title": "Check Performance",
-    "codeshell.check_security.title": "Check Security"
+    "aiacode.auto_completion_enable.title": "Enable Auto Completion",
+    "aiacode.auto_completion_disable.title": "Disable Auto Completion",
+    "aiacode.explain_this_code.title": "Explain Selected Codes",
+    "aiacode.improve_this_code.title": "Optimize Selected Codes",
+    "aiacode.clean_this_code.title": "Clean Selected Codes",
+    "aiacode.generate_comment.title": "Generate Comment",
+    "aiacode.generate_unit_test.title": "Generate Unit Test",
+    "aiacode.check_performance.title": "Check Performance",
+    "aiacode.check_security.title": "Check Security"
 }

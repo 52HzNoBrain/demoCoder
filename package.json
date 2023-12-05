@@ -27,15 +27,15 @@
   "l10n": "./l10n",
   "contributes": {
     "configuration": {
-      "title": "CodeShell",
+      "title": "AIACode",
       "properties": {
-        "CodeShell.ServerAddress": {
-          "description": "The address of the CodeShell server to connect to.",
+        "AIACode.ServerAddress": {
+          "description": "The address of the AIACode server to connect to.",
           "default": "http://127.0.0.1:8080",
           "type": "string",
           "order": 1
         },
-        "CodeShell.RunEnvForLLMs": {
+        "AIACode.RunEnvForLLMs": {
           "description": "The environment that should be used for running LLMs.",
           "default": "TSS AI toolkit",
           "enum": [
@@ -46,13 +46,13 @@
           "type": "string",
           "order": 2
         },
-        "CodeShell.AutoTriggerCompletion": {
+        "AIACode.AutoTriggerCompletion": {
           "description": "Whether or not to automatically trigger completion when typing.",
           "default": true,
           "type": "boolean",
           "order": 6
         },
-        "CodeShell.AutoCompletionDelay": {
+        "AIACode.AutoCompletionDelay": {
           "description": "The delay in seconds before automatic code completion triggers.",
           "type": "number",
           "enum": [
@@ -63,7 +63,7 @@
           "default": 1,
           "order": 7
         },
-        "CodeShell.CompletionMaxTokens": {
+        "AIACode.CompletionMaxTokens": {
           "description": "Maximum number of tokens for which suggestions will be displayed",
           "type": "number",
           "enum": [
@@ -76,7 +76,7 @@
           "default": 64,
           "order": 8
         },
-        "CodeShell.ChatMaxTokens": {
+        "AIACode.ChatMaxTokens": {
           "description": "Maximum number of tokens for which chat messages will be displayed",
           "type": "number",
           "enum": [
@@ -89,12 +89,12 @@
           "default": 2048,
           "order": 9
         },
-        "CodeShell.authorization": {
+        "AIACode.authorization": {
           "description": "user authorization",
           "type": "string",
           "order": 10
         },
-        "CodeShell.beforeCursor": {
+        "AIACode.beforeCursor": {
           "description": "Number of lines before scanning the cursor",
           "type": "number",
           "enum": [
@@ -106,7 +106,7 @@
           "default": 50,
           "order": 11
         },
-        "CodeShell.afterCursor": {
+        "AIACode.afterCursor": {
           "description": "Number of lines after scanning the cursor",
           "type": "number",
           "enum": [
@@ -130,107 +130,107 @@
     ],
     "commands": [
       {
-        "command": "codeshell.auto_completion_enable",
-        "title": "%codeshell.auto_completion_enable.title%",
-        "category": "codeshell"
+        "command": "aiacode.auto_completion_enable",
+        "title": "%aiacode.auto_completion_enable.title%",
+        "category": "aiacode"
       },
       {
-        "command": "codeshell.auto_completion_disable",
-        "title": "%codeshell.auto_completion_disable.title%",
-        "category": "codeshell"
+        "command": "aiacode.auto_completion_disable",
+        "title": "%aiacode.auto_completion_disable.title%",
+        "category": "aiacode"
       },
       {
-        "command": "codeshell.explain_this_code",
-        "title": "%codeshell.explain_this_code.title%",
-        "category": "codeshell"
+        "command": "aiacode.explain_this_code",
+        "title": "%aiacode.explain_this_code.title%",
+        "category": "aiacode"
       },
       {
-        "command": "codeshell.improve_this_code",
-        "title": "%codeshell.improve_this_code.title%",
-        "category": "codeshell"
+        "command": "aiacode.improve_this_code",
+        "title": "%aiacode.improve_this_code.title%",
+        "category": "aiacode"
       },
       {
-        "command": "codeshell.clean_this_code",
-        "title": "%codeshell.clean_this_code.title%",
-        "category": "codeshell"
+        "command": "aiacode.clean_this_code",
+        "title": "%aiacode.clean_this_code.title%",
+        "category": "aiacode"
       },
       {
-        "command": "codeshell.generate_comment",
-        "title": "%codeshell.generate_comment.title%",
-        "category": "codeshell"
+        "command": "aiacode.generate_comment",
+        "title": "%aiacode.generate_comment.title%",
+        "category": "aiacode"
       },
       {
-        "command": "codeshell.generate_unit_test",
-        "title": "%codeshell.generate_unit_test.title%",
-        "category": "codeshell"
+        "command": "aiacode.generate_unit_test",
+        "title": "%aiacode.generate_unit_test.title%",
+        "category": "aiacode"
       },
       {
-        "command": "codeshell.check_performance",
-        "title": "%codeshell.check_performance.title%",
-        "category": "codeshell"
+        "command": "aiacode.check_performance",
+        "title": "%aiacode.check_performance.title%",
+        "category": "aiacode"
       },
       {
-        "command": "codeshell.check_security",
-        "title": "%codeshell.check_security.title%",
-        "category": "codeshell"
+        "command": "aiacode.check_security",
+        "title": "%aiacode.check_security.title%",
+        "category": "aiacode"
       }
     ],
     "submenus": [
       {
-        "id": "codeshell_context_submenu",
-        "label": "CodeShell"
+        "id": "aiacode_context_submenu",
+        "label": "AIACode"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "submenu": "codeshell_context_submenu",
+          "submenu": "aiacode_context_submenu",
           "group": "navigation"
         }
       ],
-      "codeshell_context_submenu": [
+      "aiacode_context_submenu": [
         {
-          "command": "codeshell.auto_completion_enable",
+          "command": "aiacode.auto_completion_enable",
           "group": "group1@1",
-          "when": "!config.CodeShell.AutoTriggerCompletion"
+          "when": "!config.AIACode.AutoTriggerCompletion"
         },
         {
-          "command": "codeshell.auto_completion_disable",
+          "command": "aiacode.auto_completion_disable",
           "group": "group1@2",
-          "when": "config.CodeShell.AutoTriggerCompletion"
+          "when": "config.AIACode.AutoTriggerCompletion"
         },
         {
-          "command": "codeshell.explain_this_code",
+          "command": "aiacode.explain_this_code",
           "group": "group2@1",
           "when": "editorHasSelection"
         },
         {
-          "command": "codeshell.improve_this_code",
+          "command": "aiacode.improve_this_code",
           "group": "group2@2",
           "when": "editorHasSelection"
         },
         {
-          "command": "codeshell.clean_this_code",
+          "command": "aiacode.clean_this_code",
           "group": "group2@3",
           "when": "editorHasSelection"
         },
         {
-          "command": "codeshell.generate_comment",
+          "command": "aiacode.generate_comment",
           "group": "group3@1",
           "when": "editorHasSelection"
         },
         {
-          "command": "codeshell.generate_unit_test",
+          "command": "aiacode.generate_unit_test",
           "group": "group3@2",
           "when": "editorHasSelection"
         },
         {
-          "command": "codeshell.check_performance",
+          "command": "aiacode.check_performance",
           "group": "group4@1",
           "when": "editorHasSelection"
         },
         {
-          "command": "codeshell.check_security",
+          "command": "aiacode.check_security",
           "group": "group4@2",
           "when": "editorHasSelection"
         }
@@ -239,17 +239,17 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "codeshell_sidebar",
-          "title": "CodeShell",
+          "id": "aiacode_sidebar",
+          "title": "AIACode",
           "icon": "assets/logo.svg"
         }
       ]
     },
     "views": {
-      "codeshell_sidebar": [
+      "aiacode_sidebar": [
         {
-          "id": "codeshell.chatView",
-          "name": "CodeShell",
+          "id": "aiacode.chatView",
+          "name": "AIACode",
           "type": "webview"
         }
       ]

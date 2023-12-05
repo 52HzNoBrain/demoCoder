@@ -2,7 +2,7 @@ import { CancellationToken, InlineCompletionContext, InlineCompletionItem, Inlin
 import { postCompletion } from "./RequestCompletion";
 import { sleep } from "./Utils";
 
-export class CodeShellCompletionProvider implements InlineCompletionItemProvider {
+export class AIACodeCompletionProvider implements InlineCompletionItemProvider {
 
     private statusBar: StatusBarItem;
 
@@ -16,7 +16,7 @@ export class CodeShellCompletionProvider implements InlineCompletionItemProvider
         // In this method, write the logic to generate code suggestions
 
         // Get the setting for automatic triggering of completion
-        let autoTriggerEnabled = workspace.getConfiguration("CodeShell").get("AutoTriggerCompletion") as boolean;
+        let autoTriggerEnabled = workspace.getConfiguration("AIACode").get("AutoTriggerCompletion") as boolean;
         
         // If it's automatic triggering and auto-completion is disabled, return an empty array directly
         if (context.triggerKind === InlineCompletionTriggerKind.Automatic) {
@@ -25,7 +25,7 @@ export class CodeShellCompletionProvider implements InlineCompletionItemProvider
             }
 
             // Get the delay for auto-completion
-            let delay = workspace.getConfiguration("CodeShell").get("AutoCompletionDelay") as number;
+            let delay = workspace.getConfiguration("AIACode").get("AutoCompletionDelay") as number;
             
             // Simulate a delay (optional)
             await sleep(1000 * delay);
@@ -47,14 +47,14 @@ export class CodeShellCompletionProvider implements InlineCompletionItemProvider
 
         // Update the status bar to indicate loading
         this.statusBar.text = "$(loading~spin)";
-        this.statusBar.tooltip = "CodeShell - Working";
+        this.statusBar.tooltip = "AIACode - Working";
         
         // Send a code completion request
         return postCompletion(fimPrefixCode, fimSuffixCode).then((response) => {
 
             // After a successful request, update the status bar to indicate readiness
             this.statusBar.text = "$(light-bulb)";
-            this.statusBar.tooltip = `CodeShell - Ready`;
+            this.statusBar.tooltip = `AIACode - Ready`;
 
             // If the request is cancelled or the response is empty, return an empty array
             if (token.isCancellationRequested || !response || this.isNil(response.trim())) {
@@ -67,7 +67,7 @@ export class CodeShellCompletionProvider implements InlineCompletionItemProvider
             // If the request fails, log the error, update the status bar to indicate an error, and show a status bar message
             console.error(error);
             this.statusBar.text = "$(alert)";
-            this.statusBar.tooltip = "CodeShell - Error";
+            this.statusBar.tooltip = "AIACode - Error";
             window.setStatusBarMessage(`${error}`, 10000);
             
             // Return an empty array
@@ -77,7 +77,7 @@ export class CodeShellCompletionProvider implements InlineCompletionItemProvider
     }
 
     private getFimPrefixCode(document: TextDocument, position: Position): string {
-        const beforeCursor = workspace.getConfiguration("CodeShell").get("beforeCursor") as number;
+        const beforeCursor = workspace.getConfiguration("AIACode").get("beforeCursor") as number;
         const firstLine = Math.max(position.line - beforeCursor, 0);
         const range = new Range(firstLine, 0, position.line, position.character);
         return document.getText(range).trim();
@@ -85,7 +85,7 @@ export class CodeShellCompletionProvider implements InlineCompletionItemProvider
 
     private getFimSuffixCode(document: TextDocument, position: Position): string {
         const startLine = position.line + 1;
-        const afterCursor = workspace.getConfiguration("CodeShell").get("afterCursor") as number;
+        const afterCursor = workspace.getConfiguration("AIACode").get("afterCursor") as number;
         const endLine = Math.min(startLine + afterCursor, document.lineCount);
         const range = new Range(position.line, position.character, endLine, 0);
         return document.getText(range).trim();
