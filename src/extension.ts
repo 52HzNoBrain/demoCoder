@@ -10,13 +10,14 @@ import { translate } from "./LanguageHelper";
 export function activate(context: vscode.ExtensionContext) {
 	registerCompleteionExtension(context);
 	registerWebviewViewExtension(context);
+	inStroage(context);
 }
 
 // This method is called when your extension is deactivated
 export function deactivate() { }
 
 // Function to register the WebView view extension
-function registerWebviewViewExtension(context: vscode.ExtensionContext) {
+export function registerWebviewViewExtension(context: vscode.ExtensionContext) {
 
 	// Create an instance of the AIACodeWebviewViewProvider with the extension's context
 	const provider = new AIACodeWebviewViewProvider(context);
@@ -85,3 +86,23 @@ function registerCompleteionExtension(context: vscode.ExtensionContext) {
 	}
 }
 
+export const inStroage = (context: vscode.ExtensionContext) => { 
+	  // 存储键值对
+	  const key = 'username';
+	  const value = 'wang';
+	
+	  // 使用 workspaceState 或 globalState
+	  const storage = context.workspaceState; // 或者 context.globalState;
+	
+	  // 存储
+	  storage.update(key, value);
+	
+	  // 通过 key 获取值
+	  const retrievedValue = storage.get(key);
+	
+	  if (retrievedValue) {
+		console.log(`Value for key '${key}': ${retrievedValue}`);
+	  } else {
+		console.log(`No value found for key '${key}'`);
+	  }
+};
